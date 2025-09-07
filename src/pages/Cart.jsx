@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import API from "../services/api";
+import api from "../services/api";
 import CartItem from "../components/CartItem";
 
 export default function Cart() {
@@ -18,7 +18,7 @@ export default function Cart() {
 
   const fetchCart = async () => {
     try {
-      const res = await API.get("/cart");
+      const res = await api.get("/cart");
       const filteredItems = res.data.items.filter(i => i.itemId);
       setCart({ ...res.data, items: filteredItems });
     } catch (err) {
@@ -29,7 +29,7 @@ export default function Cart() {
 
   const removeItem = async (itemId) => {
     try {
-      await API.post("/cart/remove", { itemId });
+      await api.post("/cart/remove", { itemId });
       fetchCart();
     } catch (err) {
       console.log(err);
